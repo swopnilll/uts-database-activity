@@ -1,0 +1,44 @@
+CREATE TABLE girl (
+girlNo integer, 
+girlName char(10),
+girlMobile char(10),
+	
+CONSTRAINT girlNoPK PRIMARY KEY (girlNo)	
+);
+
+CREATE TABLE boy (
+boyNo integer, 
+boyName char(10),
+boyMobile char(10),
+girlNo integer, 
+	
+CONSTRAINT boyNoPK PRIMARY KEY (boyNo),
+CONSTRAINT girlNoFK FOREIGN KEY (girlNo) REFERENCES girl ON DELETE CASCADE	
+);
+
+INSERT INTO girl VALUES (1, 'HELEN', '0434042041');
+INSERT INTO girl VALUES (2, 'RACHEL', '0432041041');
+
+
+INSERT INTO boy VALUES (1, 'LAMPARD', '8888 8888', 1);
+INSERT INTO boy VALUES (2, 'HAZARD', '10101010', 1);
+INSERT INTO boy VALUES (3, 'GERRAD', '4444 4444', 2);
+INSERT INTO boy VALUES (4, 'CARRAGHER', '3333 3333', 2);
+INSERT INTO boy VALUES (5, 'JAMES', '7272 7272', null);
+
+
+SELECT * FROM girl;
+SELECT * FROM boy;
+
+SELECT * FROM boy 
+WHERE boy.girlNo IN (SELECT girlNo FROM girl);
+
+SELECT * FROM boy 
+INNER JOIN girl 
+ON boy.girlNo = girl.girlNo;
+
+SELECT * from boy
+NATURAL JOIN girl;
+
+
+
